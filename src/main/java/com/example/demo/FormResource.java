@@ -1,6 +1,8 @@
 package com.example.demo;
 
+import com.example.demo.bureauData.BureauData;
 import com.example.demo.form.Form;
+import com.example.demo.repo.BureauDataRepo;
 import com.example.demo.service.FormService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,9 +14,11 @@ import java.util.List;
 @RequestMapping("/form")
 public class FormResource {
     private final FormService formService;
+    private final BureauDataRepo bureauDataRepo;
 
-    public FormResource(FormService formService) {
+    public FormResource(FormService formService , BureauDataRepo bureauDataRepo) {
         this.formService = formService;
+        this.bureauDataRepo=bureauDataRepo;
     }
 
     @GetMapping("/all")
@@ -46,6 +50,23 @@ public class FormResource {
     public ResponseEntity<?> deleteForm(@PathVariable("id") Long id){
         formService.deleteForm(id);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping("/bureaudata")
+    public ResponseEntity<List<BureauData>> getAllBureauData(){
+
+//        BureauDataRepo bureauDataRepo;
+
+        List<BureauData> bureaudatas = bureauDataRepo.findAll();
+
+
+        return new ResponseEntity<>(bureaudatas, HttpStatus.OK);
+    }
+
+    @GetMapping("/find/bureaudata/{id}")
+    public ResponseEntity<BureauData> getBureauDataById(@PathVariable("id") Integer id){
+        BureauData data_1 = bureauDataRepo.findBureauDataById(id);
+        return new ResponseEntity<>(data_1, HttpStatus.OK);
     }
 
 }

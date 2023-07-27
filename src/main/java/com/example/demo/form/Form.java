@@ -7,6 +7,7 @@ import java.util.Date;
 
 
 @Entity
+
 public class Form implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
