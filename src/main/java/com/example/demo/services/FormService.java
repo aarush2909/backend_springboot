@@ -1,5 +1,6 @@
-package com.example.demo.service;
-
+package com.example.demo.services;
+import com.example.demo.BusinessLogic.BusinessLogic;
+import com.example.demo.services.BureauDataService;
 import com.example.demo.exception.UserNotFoundException;
 import com.example.demo.form.Form;
 import com.example.demo.repo.FormDataRepo;
@@ -11,19 +12,25 @@ import java.time.LocalDate;
 import java.util.List;
 import com.example.demo.repo.BureauDataRepo;
 
-import java.util.UUID;
 
 @Service
 @Transactional
 public class FormService {
     private final FormDataRepo formDataRepo;
+
+    private final BureauDataService bureauDataService;
     private final BureauDataRepo bureauDataRepo;
-//    private final Integer a= new Integer();
+
+    private final BusinessLogic businessLogic;
+
+    //    private final Integer a= new Integer();
 
     @Autowired
-    public FormService(FormDataRepo formDataRepo, BureauDataRepo bureauDataRepo ) {
+    public FormService(FormDataRepo formDataRepo, BureauDataService bureauDataService, BureauDataRepo bureauDataRepo, BusinessLogic businessLogic ) {
         this.formDataRepo = formDataRepo;
         this.bureauDataRepo=bureauDataRepo;
+        this.bureauDataService=bureauDataService;
+        this.businessLogic=businessLogic;
 
     }
 
@@ -32,13 +39,16 @@ public class FormService {
 
         LocalDate currentDate = LocalDate.now();
         form.setDate(currentDate.toString());
-        //String a=form.getAnnualSalary();
-        //form.setScore(Integer.parseInt(a));
-        //form.setScore(Integer.parseInt(a));
+//      it was not working when i was passing form in the getBureaudata but here i have passing id directly
+//      check the reason behind it why this was happening
 
-//        BureauDataRepo bureauDataRepo ;
-//        BureauData current_user= this.bureauDataRepo.findBureauDataById(Long.parseLong(form.getSsn()));
-//        System.out.println(current_user.getEarliest_cr_line());
+        Integer id=Integer.parseInt(form.getSsn());
+        BureauData b1=this.bureauDataService.getBureauData(id);
+
+        this.businessLogic.getScore(form,b1);
+
+
+
 
 
         return formDataRepo.save(form);

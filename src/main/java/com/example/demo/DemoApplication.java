@@ -15,17 +15,17 @@ public class DemoApplication {
 		SpringApplication.run(DemoApplication.class, args);
 	}
 
-
-@Configuration
-public class WebConfig implements WebMvcConfigurer {
-	@Override
-	public void addCorsMappings(CorsRegistry registry) {
-		registry.addMapping("/**")
-				.allowedOrigins("http://localhost:4200") // Update this with your Angular frontend's URL
-				.allowedMethods("GET", "POST", "OPTIONS", "DELETE")
-				.allowedHeaders("*")
-				.allowCredentials(true);
-	}
-}
+//
+//@Configuration
+//public class WebConfig implements WebMvcConfigurer {
+//	@Override
+//	public void addCorsMappings(CorsRegistry registry) {
+//		registry.addMapping("/**")
+//				.allowedOrigins("http://localhost:4200") // Update this with your Angular frontend's URL
+//				.allowedMethods("GET", "POST", "OPTIONS", "DELETE")
+//				.allowedHeaders("*")
+//				.allowCredentials(true);
+//	}
+//}
 
 }
