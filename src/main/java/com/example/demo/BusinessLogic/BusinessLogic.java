@@ -28,7 +28,7 @@ public class BusinessLogic {
 
 
     public void getScore(Form form, BureauData bureauData){
-//        setParaDescription(form.getDescription());
+        if(form.getDescription()!=null)setParaDescription(form.getDescription());
 
         if(bureauData!=null)setParaBureaData(bureauData);
 
@@ -40,11 +40,18 @@ public class BusinessLogic {
 
         form.setScore((int) getScoreValue());
 
-        if(form.getScore()>400)form.setStatus("Accepted");
-        else form.setStatus("Decline");
+        if(form.getScore()>400){
+            form.setStatus("Accepted");
+            form.setReason("None");
+        }
+        else{
+            form.setStatus("Decline");
+            form.setReason("Your Debt to Income Ratio is High");
+            if(form.getScore()<100)form.setScore(100);
+        }
 
-        form.setReason("java chutiya hai");
-git 
+
+
 
 
 
