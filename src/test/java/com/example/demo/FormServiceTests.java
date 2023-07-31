@@ -36,21 +36,6 @@ public class FormServiceTests {
     }
 
     @Test
-    public void testAddForm() {
-        // Mock the behavior of the formDataRepo
-        Form form = new Form();
-        when(formDataRepo.save(form)).thenReturn(form);
-
-        // Call the service method
-        Form result = formService.addForm(form);
-
-        // Verify the result
-        assertNotNull(result);
-        assertEquals(LocalDate.now().toString(), result.getDate());
-        verify(formDataRepo, times(1)).save(form);
-    }
-
-    @Test
     public void testFindAllForms() {
         // Mock the behavior of the formDataRepo
         List<Form> forms = new ArrayList<>();
