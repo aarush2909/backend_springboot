@@ -28,27 +28,49 @@ public class BusinessLogic {
 
 
     public void getScore(Form form, BureauData bureauData){
-        setParaDescription(form.getDescription());
+//        setParaDescription(form.getDescription());
 
-        if(bureauData.getId()!=null)setParaBureaData(bureauData);
+        if(bureauData!=null)setParaBureaData(bureauData);
 
 
 
-        setParaEarliestCr(bureauData.getEarliest_cr_line(),form.getDate());
+        if(bureauData!=null)setParaEarliestCr(bureauData.getEarliest_cr_line(),form.getDate());
 
         setParaFormData(form);
 
         form.setScore((int) getScoreValue());
+
         if(form.getScore()>400)form.setStatus("Accepted");
         else form.setStatus("Decline");
-        form.setReason("java chutiya hai");
 
+        form.setReason("java chutiya hai");
+git 
 
 
 
 
     }
     private void setParaDescription(String des){
+        des=des.toLowerCase();
+        String [] words=des.split("\\W+");
+
+        for(String word:words){
+            if(!word.isEmpty()){
+                System.out.println(word);
+                if(word.equals("card")) para[0]=1;
+                if(word.equals("credit")) para[1]=1;
+                if(word.equals("debt")) para[2]=1;
+                if(word.equals("interest")) para[3]=1;
+                if(word.equals("job")) para[4]=1;
+                if(word.equals("loan")) para[5]=1;
+                if(word.equals("pay")) para[6]=1;
+                if(word.equals("payment")) para[7]=1;
+                if(word.equals("time")) para[8]=1;
+                if(word.equals("year")) para[9]=1;
+
+            }
+        }
+
 
     }
     private void setParaBureaData(BureauData bureauData){
