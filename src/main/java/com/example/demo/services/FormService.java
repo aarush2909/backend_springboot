@@ -3,6 +3,7 @@ package com.example.demo.service;
 import com.example.demo.exception.UserNotFoundException;
 import com.example.demo.form.Form;
 import com.example.demo.repo.FormDataRepo;
+import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,6 +11,8 @@ import com.example.demo.bureauData.BureauData;
 import java.time.LocalDate;
 import java.util.List;
 import com.example.demo.repo.BureauDataRepo;
+import com.example.demo.service.BureauDataService;
+
 
 import java.util.UUID;
 
@@ -17,13 +20,17 @@ import java.util.UUID;
 @Transactional
 public class FormService {
     private final FormDataRepo formDataRepo;
+
+    private final BureauDataService bureauDataService;
     private final BureauDataRepo bureauDataRepo;
-//    private final Integer a= new Integer();
+
+    //    private final Integer a= new Integer();
 
     @Autowired
-    public FormService(FormDataRepo formDataRepo, BureauDataRepo bureauDataRepo ) {
+    public FormService(FormDataRepo formDataRepo, BureauDataService bureauDataService, BureauDataRepo bureauDataRepo ) {
         this.formDataRepo = formDataRepo;
         this.bureauDataRepo=bureauDataRepo;
+        this.bureauDataService=bureauDataService;
 
     }
 
@@ -32,14 +39,9 @@ public class FormService {
 
         LocalDate currentDate = LocalDate.now();
         form.setDate(currentDate.toString());
-        //String a=form.getAnnualSalary();
-        //form.setScore(Integer.parseInt(a));
-        //form.setScore(Integer.parseInt(a));
 
-//        BureauDataRepo bureauDataRepo ;
-//        BureauData current_user= this.bureauDataRepo.findBureauDataById(Long.parseLong(form.getSsn()));
-//        System.out.println(current_user.getEarliest_cr_line());
-
+        BureauData data_2= this.bureauDataRepo.findBureauDataById(Integer.parseInt(form.getSsn()));
+        form.setReason(data_2.getEarliest_cr_line());
 
         return formDataRepo.save(form);
     }
