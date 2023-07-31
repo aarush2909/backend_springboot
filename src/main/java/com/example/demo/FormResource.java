@@ -3,10 +3,12 @@ package com.example.demo;
 import com.example.demo.bureauData.BureauData;
 import com.example.demo.form.Form;
 import com.example.demo.repo.BureauDataRepo;
-import com.example.demo.service.FormService;
+import com.example.demo.services.BureauDataService;
+import com.example.demo.services.FormService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 
 import java.util.List;
 
@@ -15,10 +17,12 @@ import java.util.List;
 public class FormResource {
     private final FormService formService;
     private final BureauDataRepo bureauDataRepo;
+    private final BureauDataService bureauDataService;
 
-    public FormResource(FormService formService , BureauDataRepo bureauDataRepo) {
+    public FormResource(FormService formService , BureauDataRepo bureauDataRepo, BureauDataService bureauDataService) {
         this.formService = formService;
         this.bureauDataRepo=bureauDataRepo;
+        this.bureauDataService=bureauDataService;
     }
 
     @GetMapping("/all")
@@ -33,7 +37,9 @@ public class FormResource {
     }
 
     @PostMapping("/add")
+//    @CrossOrigin(originPatterns = "http://localhost:4200/landing-page1")
     public ResponseEntity<Form> addForm(@RequestBody Form form){
+
         Form newForm = formService.addForm(form);
 
         return new ResponseEntity<>(newForm, HttpStatus.CREATED);
@@ -57,7 +63,7 @@ public class FormResource {
 
 //        BureauDataRepo bureauDataRepo;
 
-        List<BureauData> bureaudatas = bureauDataRepo.findAll();
+        List<BureauData> bureaudatas = this.bureauDataRepo.findAll();
 
 
         return new ResponseEntity<>(bureaudatas, HttpStatus.OK);
@@ -65,7 +71,8 @@ public class FormResource {
 
     @GetMapping("/find/bureaudata/{id}")
     public ResponseEntity<BureauData> getBureauDataById(@PathVariable("id") Integer id){
-        BureauData data_1 = bureauDataRepo.findBureauDataById(id);
+        BureauData data_1 = this.bureauDataService.getBureauDatabyid(id);
+//        System.out.println(data_1);
         return new ResponseEntity<>(data_1, HttpStatus.OK);
     }
 

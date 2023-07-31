@@ -1,4 +1,4 @@
-package com.example.demo.service;
+package com.example.demo.services;
 
 import com.example.demo.bureauData.BureauData;
 import com.example.demo.form.Form;
@@ -14,9 +14,9 @@ public class BureauDataService {
         this.bureauDataRepo=bureauDataRepo;
     }
 
-    public BureauData getBureauData(Form form){
+    public BureauData getBureauData(Integer id){
 
-        return this.bureauDataRepo.findBureauDataById(Integer.parseInt(form.getSsn()));
+        return this.bureauDataRepo.findBureauDataById(id);
     }
     public BureauData getBureauDatabyid(Integer id){
         return this.bureauDataRepo.findBureauDataById(id);
