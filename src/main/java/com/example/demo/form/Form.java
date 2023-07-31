@@ -160,6 +160,14 @@ public class Form implements Serializable {
         this.date = date;
     }
 
+    public Form(long id, String firstName, String lastName, String date) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.date = date;
+
+    }
+
     public Long getId() {
         return id;
     }
