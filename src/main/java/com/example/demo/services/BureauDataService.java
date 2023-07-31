@@ -19,7 +19,9 @@ public class BureauDataService {
         return this.bureauDataRepo.findBureauDataById(id);
     }
     public BureauData getBureauDatabyid(Integer id){
-        return this.bureauDataRepo.findBureauDataById(id);
+        BureauData bureauData= this.bureauDataRepo.findBureauDataById(id);
+        if(bureauData==null)return null;
+        return bureauData;
     }
 
 
